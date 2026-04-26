@@ -5,20 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>우리 학교 탄소 다이어트 챌린지</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="app">
+        <div class="deco-layer">
+            <div class="cloud cloud-1">☁️</div>
+            <div class="cloud cloud-2">☁️</div>
+            <div class="butterfly">🦋</div>
+        </div>
+
         <header class="main-header">
-            <div class="header-left">
-                <div class="asset-badge">
-                    <span class="icon">🪨</span>
-                    <span id="pebble-count">250</span>
-                </div>
-            </div>
-            <div class="header-right">
-                <button class="btn_icon">⚙️</button>
-            </div>
+            <div class="asset-badge">🪨 250</div>
+            <button class="btn_settings">⚙️</button>
         </header>
 
         <main class="main-scene">
@@ -27,47 +25,29 @@
                 <h3>경기 지역 <span class="highlight">15위</span></h3>
             </div>
 
-            <div class="character-zone">
-                <div class="sprout-wrapper">
-                    <img src="sprout_character.png" alt="탄소 새싹" class="main-character">
-                    <div class="character-shadow"></div>
-                </div>
+            <div class="character-container" onclick="playClickEffect(event)">
+                <img src="image_469c1f.jpg" alt="메인 캐릭터" class="main-character">
+                <div class="character-shadow"></div>
                 
-                <div class="growth-container">
-                    <div class="level-tag">Lv.1 아기새싹</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 65%;"></div>
-                    </div>
-                </div>
+                <div id="effect-container"></div>
             </div>
 
-            <div class="quick-action">
-                <p>"오늘 분리배출 퀘스트를 완료해볼까요?"</p>
+            <div class="growth-box">
+                <div class="level-badge">Lv.1 아기새싹</div>
+                <div class="progress-bar"><div class="fill" style="width: 40%;"></div></div>
             </div>
+
+            <div class="quick-msg">"오늘 분리배출 퀘스트를 완료해볼까요?"</div>
         </main>
 
         <nav class="bottom-nav">
-            <button class="nav-item active">
-                <span class="nav-icon">🌱</span>
-                <span class="nav-label">홈</span>
-            </button>
-            <button class="nav-item">
-                <span class="nav-icon">📜</span>
-                <span class="nav-label">퀘스트</span>
-            </button>
-            <button class="nav-item">
-                <span class="nav-icon">🏆</span>
-                <span class="nav-label">랭킹</span>
-            </button>
-            <button class="nav-item">
-                <span class="nav-icon">🛒</span>
-                <span class="nav-label">스토어</span>
-            </button>
-            <button class="nav-item">
-                <span class="nav-icon">👤</span>
-                <span class="nav-label">내 정보</span>
-            </button>
+            <button class="nav-item active">🌱<span>홈</span></button>
+            <button class="nav-item">📜<span>퀘스트</span></button>
+            <button class="nav-item">🏆<span>랭킹</span></button>
+            <button class="nav-item">🛒<span>스토어</span></button>
+            <button class="nav-item">👤<span>내 정보</span></button>
         </nav>
     </div>
+    <script src="main.js"></script>
 </body>
 </html>
