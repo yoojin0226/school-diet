@@ -15,10 +15,23 @@
         </header>
 
         <main class="main-scene" id="decoration-area">
-            <div class="tree-container">
-                <img src="https://via.placeholder.com/200?text=My_Tree" id="main-tree" alt="성장하는 나무">
+            
+            <div class="character-container">
+                <div class="sprout-character">
+                    <svg viewBox="0 0 100 100" class="sprout-svg">
+                        <path d="M30,70 L70,70 L65,90 L35,90 Z" fill="#8B4513" stroke="#654321" stroke-width="2"/>
+                        
+                        <path d="M50,70 C50,60 50,50 50,40" fill="none" stroke="#32CD32" stroke-width="4" stroke-linecap="round" class="stem"/>
+                        
+                        <path d="M50,50 C40,45 35,55 45,60 Z" fill="#7CFC00" stroke="#32CD32" stroke-width="1" class="leaf leaf-left"/>
+                        
+                        <path d="M50,40 C60,35 65,45 55,50 Z" fill="#7CFC00" stroke="#32CD32" stroke-width="1" class="leaf leaf-right"/>
+                        
+                        <circle cx="43" cy="80" r="2" fill="#333"/> <circle cx="57" cy="80" r="2" fill="#333"/> <path d="M47,85 C50,88 53,85 53,85" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round"/> <circle cx="40" cy="82" r="1.5" fill="#FFC0CB" opacity="0.7"/> <circle cx="60" cy="82" r="1.5" fill="#FFC0CB" opacity="0.7"/> </svg>
+                </div>
                 <div class="growth-label">Lv.<span id="tree-level">1</span></div>
             </div>
+            
             <div id="placed-items"></div>
         </main>
 
