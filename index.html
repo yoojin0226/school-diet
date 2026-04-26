@@ -2,62 +2,72 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>탄소 다이어트 챌린지</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>우리 학교 탄소 다이어트 챌린지</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <header class="rank-header">
-            <div class="school-rank">
-                우리 학교 순위: <span id="rank-number">15</span>위
+        <header class="main-header">
+            <div class="header-left">
+                <div class="asset-badge">
+                    <span class="icon">🪨</span>
+                    <span id="pebble-count">250</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="btn_icon">⚙️</button>
             </div>
         </header>
 
-        <main class="main-scene" id="decoration-area">
-            
-            <div class="character-container">
-                <div class="sprout-character">
-                    <svg viewBox="0 0 100 100" class="sprout-svg">
-                        <path d="M30,70 L70,70 L65,90 L35,90 Z" fill="#8B4513" stroke="#654321" stroke-width="2"/>
-                        
-                        <path d="M50,70 C50,60 50,50 50,40" fill="none" stroke="#32CD32" stroke-width="4" stroke-linecap="round" class="stem"/>
-                        
-                        <path d="M50,50 C40,45 35,55 45,60 Z" fill="#7CFC00" stroke="#32CD32" stroke-width="1" class="leaf leaf-left"/>
-                        
-                        <path d="M50,40 C60,35 65,45 55,50 Z" fill="#7CFC00" stroke="#32CD32" stroke-width="1" class="leaf leaf-right"/>
-                        
-                        <circle cx="43" cy="80" r="2" fill="#333"/> <circle cx="57" cy="80" r="2" fill="#333"/> <path d="M47,85 C50,88 53,85 53,85" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round"/> <circle cx="40" cy="82" r="1.5" fill="#FFC0CB" opacity="0.7"/> <circle cx="60" cy="82" r="1.5" fill="#FFC0CB" opacity="0.7"/> </svg>
-                </div>
-                <div class="growth-label">Lv.<span id="tree-level">1</span></div>
+        <main class="main-scene">
+            <div class="ranking-card">
+                <p>우리 학교는 지금</p>
+                <h3>경기 지역 <span class="highlight">15위</span></h3>
             </div>
-            
-            <div id="placed-items"></div>
+
+            <div class="character-zone">
+                <div class="sprout-wrapper">
+                    <img src="sprout_character.png" alt="탄소 새싹" class="main-character">
+                    <div class="character-shadow"></div>
+                </div>
+                
+                <div class="growth-container">
+                    <div class="level-tag">Lv.1 아기새싹</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 65%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-action">
+                <p>"오늘 분리배출 퀘스트를 완료해볼까요?"</p>
+            </div>
         </main>
 
         <nav class="bottom-nav">
-            <button class="nav-item active" onclick="changeTab('home')">
-                <span class="icon">🏠</span>
-                <span class="label">홈</span>
+            <button class="nav-item active">
+                <span class="nav-icon">🌱</span>
+                <span class="nav-label">홈</span>
             </button>
-            <button class="nav-item" onclick="changeTab('quest')">
-                <span class="icon">📜</span>
-                <span class="label">퀘스트</span>
+            <button class="nav-item">
+                <span class="nav-icon">📜</span>
+                <span class="nav-label">퀘스트</span>
             </button>
-            <button class="nav-item" onclick="changeTab('ranking')">
-                <span class="icon">🏆</span>
-                <span class="label">랭킹</span>
+            <button class="nav-item">
+                <span class="nav-icon">🏆</span>
+                <span class="nav-label">랭킹</span>
             </button>
-            <button class="nav-item" onclick="changeTab('store')">
-                <span class="icon">🛒</span>
-                <span class="label">스토어</span>
+            <button class="nav-item">
+                <span class="nav-icon">🛒</span>
+                <span class="nav-label">스토어</span>
             </button>
-            <button class="nav-item" onclick="changeTab('profile')">
-                <span class="icon">👤</span>
-                <span class="label">내 정보</span>
+            <button class="nav-item">
+                <span class="nav-icon">👤</span>
+                <span class="nav-label">내 정보</span>
             </button>
         </nav>
     </div>
-    <script src="main.js"></script>
 </body>
 </html>
