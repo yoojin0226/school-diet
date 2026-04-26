@@ -1,0 +1,101 @@
+:root {
+    --primary-green: #4CAF50;
+    --nav-bg: #ffffff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Apple SD Gothic Neo', sans-serif;
+    background-color: #f0f7f0;
+    overflow: hidden; /* 스크롤 방지 */
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+}
+
+/* 상단 순위 바 */
+.rank-header {
+    padding: 20px;
+    text-align: center;
+    z-index: 10;
+}
+
+.school-rank {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 20px;
+    display: inline-block;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    color: var(--primary-green);
+}
+
+/* 메인 배경 (꾸미기 공간) */
+.main-scene {
+    flex: 1;
+    position: relative;
+    background: linear-gradient(to bottom, #a1c4fd 0%, #c2e9fb 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 나무 컨테이너 */
+.tree-container {
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+#main-tree {
+    width: 200px;
+    height: auto;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+}
+
+.growth-label {
+    margin-top: 10px;
+    background: var(--primary-green);
+    color: white;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+/* 하단 내비게이션 */
+.bottom-nav {
+    height: 70px;
+    background: var(--nav-bg);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding-bottom: env(safe-area-inset-bottom); /* 아이폰 하단 대응 */
+}
+
+.nav-item {
+    border: none;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #888;
+    cursor: pointer;
+}
+
+.nav-item.active {
+    color: var(--primary-green);
+}
+
+.nav-item .icon {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.nav-item .label {
+    font-size: 11px;
+}
