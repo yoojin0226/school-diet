@@ -4,7 +4,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>우리 학교 탄소 다이어트 챌린지</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #76c859;
+            --bg-blue: #e3f2fd;
+        }
+
+        body { 
+            margin: 0; 
+            background: var(--bg-blue); 
+            font-family: 'Apple SD Gothic Neo', sans-serif; 
+            overflow: hidden; 
+        }
+
+        #app {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(to bottom, #ffffff, #c2e9fb);
+        }
+
+        /* --- 배경 장식 (구름, 나비) --- */
+        .deco-layer { position: absolute; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .cloud { position: absolute; font-size: 40px; opacity: 0.6; animation: moveCloud 25s linear infinite; }
+        .cloud-1 { top: 10%; left: -10%; }
+        .cloud-2 { top: 20%; left: -40%; animation-delay: 12s; }
+        .butterfly { position: absolute; top: 35%; right: 15%; font-size: 25px; animation: fly 5s ease-in-out infinite; }
+
+        @keyframes moveCloud { to { transform: translateX(120vw); } }
+        @keyframes fly { 
+            0%, 100% { transform: translate(0,0) rotate(0); }
+            50% { transform: translate(-30px, -40px) rotate(20deg); }
+        }
+
+        /* --- 상단 헤더 --- */
+        .main-header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+        .asset-badge {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            font-weight: bold;
+        }
+
+        /* --- 메인 장면 --- */
+        .main-scene { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            position: relative; 
+            z-index: 5;
+        }
+
+        .ranking-card { 
+            position: absolute; 
+            top: 10px; 
+            right: 20px; 
+            background: white; 
+            padding: 12px 18px; 
+            border-radius: 20px; 
+            text-align: right; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+        }
+        .ranking-card p { margin: 0; font-size: 12px; color: #888; }
+        .ranking-card h3 { margin: 4px 0 0; font-size: 16px; }
+        .highlight { color: var(--primary); font-weight: bold; }
+
+        /* --- 캐릭터 설정 --- */
+        .character-container {
+            position: relative;
+            width: 70%; 
+            max-width: 320px;
+            cursor: pointer;
+            transition: transform 0.1s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .character-container:active { transform: scale(0.95); }
+
+        .main-character {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* --- 클릭 효과 스타일 --- */
+        #effect-container { position: absolute; width: 100%; height: 100%; pointer-events: none; }
+        .effect-item {
+            position: absolute;
+            pointer-events: none;
+            font-size: 30px;
+            animation: popUp 0.8s ease-out forwards;
+            z-index: 20;
+        }
+        @keyframes popUp {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(-50%, -180%) scale(1.8); opacity: 0; }
+        }
+
+        /* --- 하단 UI --- */
+        .growth-box { margin-top: 40px; width: 60%; text-align: center; }
+        .level-badge { background: var(--primary); color: white; padding: 5px 15px; border-radius: 15px; font-size: 12px; display: inline-block; }
+        .progress-bar { height: 10px; background: rgba(0,0,0,0.05); border-radius: 5px; overflow: hidden; margin-top: 10px; }
+        .fill { height: 100%; background: var(--primary); }
+
+        .bottom-nav { 
+            height: 75px; 
+            background: white; 
+            display: flex; 
+            justify-content: space-around; 
+            align-items: center; 
+            border-top: 1px solid #eee; 
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .nav-item { border: none; background: none; display: flex; flex-direction: column; align-items: center; font-size: 11px; color: #bbb; cursor: pointer; }
+        .nav-item.active { color: var(--primary); font-weight: bold; }
+        .nav-icon { font-size: 24px; margin-bottom: 4px; }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -16,7 +148,7 @@
 
         <header class="main-header">
             <div class="asset-badge">🪨 250</div>
-            <button class="btn_settings">⚙️</button>
+            <button style="background:none; border:none; font-size: 20px;">⚙️</button>
         </header>
 
         <main class="main-scene">
@@ -25,10 +157,8 @@
                 <h3>경기 지역 <span class="highlight">15위</span></h3>
             </div>
 
-            <div class="character-container" onclick="playClickEffect(event)">
-                <img src="image_469c1f.jpg" alt="메인 캐릭터" class="main-character">
-                <div class="character-shadow"></div>
-                
+            <div class="character-container" id="character-btn">
+                <img src="image_496c1f.png" alt="메인 캐릭터" class="main-character">
                 <div id="effect-container"></div>
             </div>
 
@@ -36,18 +166,43 @@
                 <div class="level-badge">Lv.1 아기새싹</div>
                 <div class="progress-bar"><div class="fill" style="width: 40%;"></div></div>
             </div>
-
-            <div class="quick-msg">"오늘 분리배출 퀘스트를 완료해볼까요?"</div>
         </main>
 
         <nav class="bottom-nav">
-            <button class="nav-item active">🌱<span>홈</span></button>
-            <button class="nav-item">📜<span>퀘스트</span></button>
-            <button class="nav-item">🏆<span>랭킹</span></button>
-            <button class="nav-item">🛒<span>스토어</span></button>
-            <button class="nav-item">👤<span>내 정보</span></button>
+            <button class="nav-item active"><span class="nav-icon">🌱</span><span>홈</span></button>
+            <button class="nav-item"><span class="nav-icon">📜</span><span>퀘스트</span></button>
+            <button class="nav-item"><span class="nav-icon">🏆</span><span>랭킹</span></button>
+            <button class="nav-item"><span class="nav-icon">🛒</span><span>스토어</span></button>
+            <button class="nav-item"><span class="nav-icon">👤</span><span>내 정보</span></button>
         </nav>
     </div>
-    <script src="main.js"></script>
+
+    <script>
+        const charBtn = document.getElementById('character-btn');
+        const effectContainer = document.getElementById('effect-container');
+
+        charBtn.addEventListener('click', (e) => {
+            const icons = ['❤️', '✨', '💖', '⭐', '🌿'];
+            
+            for(let i=0; i<3; i++) {
+                const span = document.createElement('span');
+                span.className = 'effect-item';
+                span.innerText = icons[Math.floor(Math.random() * icons.length)];
+                
+                // 클릭 위치 기준 무작위 산출
+                const x = e.offsetX + (Math.random() * 60 - 30);
+                const y = e.offsetY + (Math.random() * 60 - 30);
+                
+                span.style.left = x + 'px';
+                span.style.top = y + 'px';
+                
+                effectContainer.appendChild(span);
+                
+                setTimeout(() => {
+                    span.remove();
+                }, 800);
+            }
+        });
+    </script>
 </body>
 </html>
