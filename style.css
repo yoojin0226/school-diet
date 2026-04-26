@@ -1,132 +1,135 @@
 :root {
-    --primary-green: #4CAF50;
-    --leaf-green: #7CFC00;
-    --pot-brown: #8B4513;
-    --nav-bg: #ffffff;
+    --main-green: #76c859;
+    --soft-blue: #e3f2fd;
+    --white: #ffffff;
+    --text-dark: #444;
 }
 
 body {
     margin: 0;
-    padding: 0;
-    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-    overflow: hidden; /* 스크롤 방지 (앱 느낌) */
-    -webkit-touch-callout: none; /* 터치 길게 누르기 방지 */
+    font-family: 'Nanum Gothic Coding', monospace;
+    background-color: var(--soft-blue);
+    color: var(--text-dark);
+    overflow: hidden;
 }
 
 #app {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    position: relative;
+    background: linear-gradient(180deg, #ffffff 0%, #e3f2fd 100%);
 }
 
-/* 상단 학교 순위 영역 (사진 글씨 위치) */
-.rank-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 25px 0;
-    text-align: center;
+/* 헤더 디자인 */
+.main-header {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     z-index: 10;
 }
 
-.school-rank {
-    background: rgba(255, 255, 255, 0.7);
-    padding: 10px 25px;
-    border-radius: 25px;
-    display: inline-block;
+.asset-badge {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 6px 14px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     font-weight: bold;
-    font-size: 0.95rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    color: #333;
-    backdrop-filter: blur(5px); /* 배경 흐리게 */
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-#rank-number {
-    color: var(--primary-green);
-    font-size: 1.1rem;
+/* 학교 순위 카드 */
+.ranking-card {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    background: white;
+    padding: 12px 18px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    text-align: right;
 }
 
-/* 메인 화면 배경 (파스텔 하늘) */
+.ranking-card p { margin: 0; font-size: 12px; color: #888; }
+.ranking-card h3 { margin: 4px 0 0; font-size: 16px; }
+.highlight { color: var(--main-green); font-weight: 800; }
+
+/* 캐릭터 영역 */
 .main-scene {
     flex: 1;
     position: relative;
-    background: linear-gradient(to bottom, #a1c4fd 0%, #c2e9fb 100%); /* 하늘색 그라데이션 */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.sprout-wrapper {
+    position: relative;
+    width: 280px;
+    display: flex;
+    justify-content: center;
+}
+
+.main-character {
+    width: 100%;
+    height: auto;
+    z-index: 2;
+    /* 부드럽게 위아래로 움직이는 애니메이션 */
+    animation: float 3s ease-in-out infinite;
+}
+
+.character-shadow {
+    position: absolute;
+    bottom: -10px;
+    width: 120px;
+    height: 20px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    filter: blur(5px);
+    z-index: 1;
+}
+
+/* 성장 바 */
+.growth-container {
+    margin-top: 30px;
+    width: 200px;
+    text-align: center;
+}
+
+.level-tag {
+    background: var(--main-green);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    height: 8px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 4px;
     overflow: hidden;
 }
 
-/* 귀여운 새싹 캐릭터 스타일 및 애니메이션 */
-.character-container {
-    text-align: center;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.sprout-character {
-    width: 180px;
-    height: 180px;
-    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
-    animation: sway 3s ease-in-out infinite; /* 흔들리는 애니메이션 */
-    transform-origin: bottom center;
-}
-
-.sprout-svg {
-    width: 100%;
+.progress-fill {
     height: 100%;
+    background: linear-gradient(90deg, #a8e063, #56ab2f);
 }
 
-/* 잎사귀 애니메이션 */
-.leaf {
-    animation: leafGrow 2s ease-out;
-}
-
-.leaf-left {
-    transform-origin: 50px 50px;
-}
-
-.leaf-right {
-    transform-origin: 50px 40px;
-}
-
-/* 레벨 라벨 */
-.growth-label {
-    margin-top: 15px;
-    background: var(--primary-green);
-    color: white;
-    padding: 4px 15px;
-    border-radius: 15px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-}
-
-/* 애니메이션 정의 */
-@keyframes sway {
-    0%, 100% { transform: rotate(-2deg); }
-    50% { transform: rotate(2deg); }
-}
-
-@keyframes leafGrow {
-    from { transform: scale(0); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-/* 하단 내비게이션 바 (5탭) */
+/* 내비게이션 */
 .bottom-nav {
-    height: 70px;
-    background: var(--nav-bg);
+    height: 75px;
+    background: white;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-top: 1px solid #e0e0e0;
-    padding-bottom: env(safe-area-inset-bottom); /* 아이폰 하단 대응 */
-    z-index: 20;
+    border-top: 1px solid #f0f0f0;
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 .nav-item {
@@ -135,22 +138,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #9e9e9e;
-    cursor: pointer;
-    flex: 1;
-    padding: 0;
+    color: #bbb;
 }
 
-.nav-item.active {
-    color: var(--primary-green);
-}
+.nav-item.active { color: var(--main-green); }
+.nav-icon { font-size: 24px; margin-bottom: 4px; }
+.nav-label { font-size: 10px; font-weight: bold; }
 
-.nav-item .icon {
-    font-size: 26px;
-    margin-bottom: 3px;
-}
-
-.nav-item .label {
-    font-size: 11px;
-    font-weight: 500;
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
 }
