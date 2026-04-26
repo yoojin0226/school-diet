@@ -1,151 +1,78 @@
 :root {
-    --main-green: #76c859;
-    --soft-blue: #e3f2fd;
-    --white: #ffffff;
-    --text-dark: #444;
+    --primary: #76c859;
+    --bg-blue: #e3f2fd;
 }
 
-body {
-    margin: 0;
-    font-family: 'Nanum Gothic Coding', monospace;
-    background-color: var(--soft-blue);
-    color: var(--text-dark);
-    overflow: hidden;
-}
+body { margin: 0; background: var(--bg-blue); font-family: sans-serif; overflow: hidden; }
 
 #app {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: linear-gradient(180deg, #ffffff 0%, #e3f2fd 100%);
-}
-
-/* 헤더 디자인 */
-.main-header {
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 10;
-}
-
-.asset-badge {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 6px 14px;
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-/* 학교 순위 카드 */
-.ranking-card {
-    position: absolute;
-    top: 80px;
-    right: 20px;
-    background: white;
-    padding: 12px 18px;
-    border-radius: 18px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    text-align: right;
-}
-
-.ranking-card p { margin: 0; font-size: 12px; color: #888; }
-.ranking-card h3 { margin: 4px 0 0; font-size: 16px; }
-.highlight { color: var(--main-green); font-weight: 800; }
-
-/* 캐릭터 영역 */
-.main-scene {
-    flex: 1;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    background: linear-gradient(to bottom, #ffffff, #c2e9fb);
 }
 
-.sprout-wrapper {
-    position: relative;
-    width: 280px;
-    display: flex;
-    justify-content: center;
+/* --- 배경 장식 (구름, 나비) --- */
+.deco-layer { position: absolute; width: 100%; height: 100%; pointer-events: none; }
+.cloud { position: absolute; font-size: 40px; opacity: 0.6; animation: moveCloud 20s linear infinite; }
+.cloud-1 { top: 15%; left: -10%; }
+.cloud-2 { top: 25%; left: -30%; animation-delay: 10s; }
+.butterfly { position: absolute; top: 40%; right: 10%; font-size: 25px; animation: fly 4s ease-in-out infinite; }
+
+@keyframes moveCloud { to { transform: translateX(120vw); } }
+@keyframes fly { 
+    0%, 100% { transform: translate(0,0) rotate(0); }
+    50% { transform: translate(-20px, -30px) rotate(15deg); }
 }
+
+/* --- 캐릭터 레이아웃 --- */
+.main-scene { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+
+.character-container {
+    position: relative;
+    width: 85%; /* 화면 너비에 맞춤 */
+    max-width: 400px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.character-container:active { transform: scale(0.95); }
 
 .main-character {
     width: 100%;
-    height: auto;
-    z-index: 2;
-    /* 부드럽게 위아래로 움직이는 애니메이션 */
-    animation: float 3s ease-in-out infinite;
+    border-radius: 40px; /* 캐릭터 사진 모서리를 둥글게 */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    display: block;
 }
 
 .character-shadow {
     position: absolute;
-    bottom: -10px;
-    width: 120px;
-    height: 20px;
-    background: rgba(0,0,0,0.1);
-    border-radius: 50%;
-    filter: blur(5px);
-    z-index: 1;
+    bottom: -15px; left: 50%; transform: translateX(-50%);
+    width: 70%; height: 20px; background: rgba(0,0,0,0.1);
+    filter: blur(8px); border-radius: 50%;
 }
 
-/* 성장 바 */
-.growth-container {
-    margin-top: 30px;
-    width: 200px;
-    text-align: center;
+/* --- UI 요소들 --- */
+.ranking-card { position: absolute; top: 20px; right: 20px; background: white; padding: 10px 15px; border-radius: 20px; text-align: right; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.growth-box { margin-top: 30px; width: 60%; text-align: center; }
+.progress-bar { height: 10px; background: #eee; border-radius: 5px; overflow: hidden; margin-top: 10px; }
+.fill { height: 100%; background: var(--primary); }
+
+/* --- 클릭 효과 스타일 --- */
+.effect-item {
+    position: absolute;
+    pointer-events: none;
+    font-size: 24px;
+    animation: popUp 0.8s ease-out forwards;
 }
 
-.level-tag {
-    background: var(--main-green);
-    color: white;
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 11px;
-    display: inline-block;
-    margin-bottom: 8px;
+@keyframes popUp {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    100% { transform: translate(-50%, -150%) scale(1.5); opacity: 0; }
 }
 
-.progress-bar {
-    height: 8px;
-    background: rgba(0,0,0,0.1);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #a8e063, #56ab2f);
-}
-
-/* 내비게이션 */
-.bottom-nav {
-    height: 75px;
-    background: white;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-top: 1px solid #f0f0f0;
-    padding-bottom: env(safe-area-inset-bottom);
-}
-
-.nav-item {
-    border: none;
-    background: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #bbb;
-}
-
-.nav-item.active { color: var(--main-green); }
-.nav-icon { font-size: 24px; margin-bottom: 4px; }
-.nav-label { font-size: 10px; font-weight: bold; }
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
+/* 내비게이션 바 등 기타 디자인 생략 (이전과 동일) */
+.bottom-nav { height: 70px; background: white; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #eee; }
+.nav-item { border: none; background: none; display: flex; flex-direction: column; align-items: center; font-size: 10px; color: #888; }
+.nav-item.active { color: var(--primary); font-weight: bold; }
