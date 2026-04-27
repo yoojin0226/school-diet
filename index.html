@@ -8,234 +8,134 @@
         :root {
             --primary-green: #76c859;
             --water-blue: #4fc3f7;
-            --bg-gradient: linear-gradient(to bottom, #ffffff, #c2e9fb);
+            --bg-light: #f7f9fc;
         }
 
         body { 
             margin: 0; 
-            background: var(--bg-blue); 
             font-family: 'Apple SD Gothic Neo', sans-serif; 
             overflow: hidden; 
-            touch-action: none; /* 브라우저 기본 스크롤 방지 */
-        }
-
-        #app {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            position: relative;
-            background: var(--bg-gradient);
-        }
-
-        /* --- 상단 헤더 --- */
-        .main-header {
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-        }
-
-        .water-token-badge {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 8px 15px;
-            border-radius: 25px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--water-blue);
-        }
-
-        .header-right-icons {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .btn_icon {
-            background: white; border: none; width: 38px; height: 38px;
-            border-radius: 50%; font-size: 18px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            cursor: pointer; display: flex; justify-content: center; align-items: center;
-        }
-
-        /* --- 상단 학교 랭킹 (요청하신 위치) --- */
-        .top-ranking-info {
-            text-align: center;
-            margin-top: 10px;
-            z-index: 10;
-        }
-
-        .ranking-text {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .ranking-number {
-            color: var(--primary-green);
-        }
-
-        /* --- 메인 장면 --- */
-        .main-scene { 
-            flex: 1; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: flex-end; /* 캐릭터를 아래쪽으로 배치 */
-            position: relative; 
-            z-index: 10;
-            padding-bottom: 30px; /* 하단 탭과의 간격 */
-        }
-
-        /* --- 캐릭터 360도 회전 컨테이너 --- */
-        .character-wrapper {
-            perspective: 1000px;
-            width: 260px;
-            cursor: grab;
-            user-select: none;
             touch-action: none;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 40px; /* 질문 상자와의 간격 */
+            background: #fff;
         }
 
-        .character-wrapper:active { cursor: grabbing; }
-
-        .main-character {
+        /* --- 화면 전환 레이아웃 --- */
+        .page {
+            display: none; /* 기본적으로 모든 페이지 숨김 */
+            height: calc(100vh - 75px);
             width: 100%;
-            height: auto;
-            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.1));
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease-out;
-            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
         }
 
-        /* --- 사각형 질문 상자 (캐릭터 아래) --- */
-        .quiz-box {
-            background: white;
-            width: 85%;
-            max-width: 340px;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            text-align: center;
-            margin-bottom: 20px;
+        .page.active {
+            display: flex; /* 활성화된 페이지만 표시 */
+            flex-direction: column;
         }
 
-        .quiz-tag {
-            display: block;
-            color: var(--primary-green);
-            font-weight: bold;
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
+        /* --- [HOME] 홈 화면 스타일 --- */
+        #home-page { background: linear-gradient(to bottom, #ffffff, #c2e9fb); justify-content: flex-end; padding-bottom: 30px; }
+        .main-header { position: absolute; top: 0; width: 100%; display: flex; justify-content: space-between; padding: 15px 20px; box-sizing: border-box; z-index: 100; }
+        .water-token { background: rgba(255,255,255,0.8); padding: 8px 15px; border-radius: 20px; font-weight: bold; color: var(--water-blue); }
+        .top-ranking { position: absolute; top: 70px; width: 100%; text-align: center; font-weight: bold; font-size: 18px; }
+        .character-wrapper { width: 260px; perspective: 1000px; margin-bottom: 30px; cursor: grab; }
+        .main-character { width: 100%; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.1)); transition: transform 0.1s ease-out; }
+        .quiz-box { background: white; width: 85%; padding: 20px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); text-align: center; margin-bottom: 20px; }
 
-        .quiz-content {
-            font-size: 15px;
-            color: #333;
-            line-height: 1.5;
-            word-break: keep-all;
-        }
+        /* --- [QUEST] 퀘스트 화면 스타일 --- */
+        #quest-page { background: var(--bg-light); padding: 20px; box-sizing: border-box; }
+        .quest-header { text-align: center; font-weight: bold; font-size: 18px; margin-bottom: 20px; padding-top: 10px; }
+        .record-tabs { display: flex; gap: 15px; margin-bottom: 25px; }
+        .small-tab { flex: 1; background: white; padding: 15px; border-radius: 18px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .large-card { background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.06); border-left: 5px solid var(--primary-green); margin-bottom: 25px; }
+        .recommend-item { background: white; padding: 15px; border-radius: 15px; display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
 
-        /* --- 하단 네비게이션 --- */
+        /* --- 공통 하단 네비게이션 --- */
         .bottom-nav { 
-            height: 75px; 
-            background: white; 
-            display: flex; 
-            justify-content: space-around; 
-            align-items: center; 
-            border-top: 1px solid #eee; 
-            padding-bottom: env(safe-area-inset-bottom);
-            z-index: 100;
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 75px; 
+            background: white; display: flex; justify-content: space-around; 
+            align-items: center; border-top: 1px solid #eee; 
+            padding-bottom: env(safe-area-inset-bottom); z-index: 1000;
         }
-
-        .nav-item { border: none; background: none; display: flex; flex-direction: column; align-items: center; font-size: 11px; color: #bbb; }
+        .nav-item { border: none; background: none; display: flex; flex-direction: column; align-items: center; font-size: 11px; color: #bbb; cursor: pointer; }
         .nav-item.active { color: var(--primary-green); font-weight: bold; }
-        .nav-icon { font-size: 24px; margin-bottom: 4px; }
     </style>
 </head>
 <body>
-    <div id="app">
+
+    <div id="home-page" class="page active">
         <header class="main-header">
-            <div class="water-token-badge">
-                <span class="icon">💧</span>
-                <span id="water-count">1,250</span>
-            </div>
-            
-            <div class="header-right-icons">
-                <button class="btn_icon">📤</button>
-                <button class="btn_icon">🔔</button>
-                <div class="btn_icon" style="overflow:hidden;">
-                    <img src="image_496c1f.png" alt="Pet" style="width:100%; height:100%; object-fit:cover;">
-                </div>
-            </div>
+            <div class="water-token">💧 1,250</div>
+            <div style="display:flex; gap:10px;"><span>📤</span><span>🔔</span></div>
         </header>
-
-        <div class="top-ranking-info">
-            <div class="ranking-text">
-                우리 학교 순위 <span class="ranking-number">15</span>위 째
-            </div>
+        <div class="top-ranking">우리 학교 순위 <span style="color:var(--primary-green)">15</span>위 째</div>
+        <div class="character-wrapper" id="rotate-container">
+            <img src="image_496c1f.png" alt="캐릭터" id="sprout-img" class="main-character">
         </div>
-
-        <main class="main-scene">
-            <div class="character-wrapper" id="rotate-container">
-                <img src="image_496c1f.png" alt="메인 캐릭터" id="sprout-img" class="main-character">
-            </div>
-
-            <div class="quiz-box">
-                <span class="quiz-tag">오늘의 기후 행동 질문</span>
-                <div class="quiz-content">
-                    "가까운 거리는 걷거나 자전거를 이용해볼까요?"
-                </div>
-            </div>
-        </main>
-
-        <nav class="bottom-nav">
-            <button class="nav-item active"><span class="nav-icon">🌱</span><span>홈</span></button>
-            <button class="nav-item"><span class="nav-icon">📜</span><span>퀘스트</span></button>
-            <button class="nav-item"><span class="nav-icon">🏆</span><span>랭킹</span></button>
-            <button class="nav-item"><span class="nav-icon">🛒</span><span>스토어</span></button>
-            <button class="nav-item"><span class="nav-icon">👤</span><span>내 정보</span></button>
-        </nav>
+        <div class="quiz-box">
+            <div style="color:var(--primary-green); font-size:12px; margin-bottom:8px; font-weight:bold;">오늘의 기후 행동 질문</div>
+            <div>"가까운 거리는 걷거나 자전거를 이용해볼까요?"</div>
+        </div>
     </div>
 
+    <div id="quest-page" class="page">
+        <div class="quest-header">질문과 답변</div>
+        <div class="record-tabs">
+            <div class="small-tab">✍️<br><span style="font-size:12px;">작성한 질문</span></div>
+            <div class="small-tab">🏃<br><span style="font-size:12px;">수행한 행동</span></div>
+        </div>
+        <div style="font-weight:bold; margin-bottom:10px;">📅 오늘의 미션</div>
+        <div class="large-card">
+            <div style="color:var(--primary-green); font-size:11px; font-weight:bold;">CLIMATE MISSION</div>
+            <div style="font-weight:bold; margin-top:5px;">"급식 잔반 남기지 않기 인증샷 찍기"</div>
+        </div>
+        <div style="font-weight:bold; margin-bottom:10px;">💡 추천 행동</div>
+        <div class="recommend-item">🚲 자전거 등교하기</div>
+        <div class="recommend-item">🔌 안쓰는 플러그 뽑기</div>
+    </div>
+
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="showPage('home-page', this)">🏠<span>홈</span></button>
+        <button class="nav-item" onclick="showPage('quest-page', this)">📜<span>퀘스트</span></button>
+        <button class="nav-item">🏆<span>랭킹</span></button>
+        <button class="nav-item">🛒<span>스토어</span></button>
+        <button class="nav-item">👤<span>내 정보</span></button>
+    </nav>
+
     <script>
+        // 페이지 전환 함수
+        function showPage(pageId, btn) {
+            // 모든 페이지 숨기기
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            // 선택한 페이지 보이기
+            document.getElementById(pageId).classList.add('active');
+            
+            // 모든 버튼 비활성화
+            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+            // 클릭한 버튼 활성화
+            btn.classList.add('active');
+        }
+
+        // 캐릭터 회전 로직 (기존 코드 유지)
         const container = document.getElementById('rotate-container');
         const img = document.getElementById('sprout-img');
+        let isDragging = false, startX, currentRotation = 0;
 
-        let isDragging = false;
-        let startX;
-        let currentRotation = 0;
-
-        const startAction = (e) => {
-            isDragging = true;
-            startX = (e.pageX || e.touches[0].pageX);
-        };
-
-        const moveAction = (e) => {
+        container.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].pageX; });
+        window.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
-            const x = (e.pageX || e.touches[0].pageX);
-            const walk = (x - startX) * 0.6; // 회전 민감도
+            let x = e.touches[0].pageX;
+            let walk = (x - startX) * 0.6;
             img.style.transform = `rotateY(${currentRotation + walk}deg)`;
-        };
-
-        const endAction = (e) => {
+        });
+        window.addEventListener('touchend', (e) => {
             if (!isDragging) return;
             isDragging = false;
-            const x = (e.pageX || e.changedTouches[0].pageX);
+            let x = e.changedTouches[0].pageX;
             currentRotation += (x - startX) * 0.6;
-        };
-
-        // 마우스/터치 이벤트 등록
-        container.addEventListener('mousedown', startAction);
-        window.addEventListener('mousemove', moveAction);
-        window.addEventListener('mouseup', endAction);
-        container.addEventListener('touchstart', startAction);
-        window.addEventListener('touchmove', moveAction);
-        window.addEventListener('touchend', endAction);
+        });
     </script>
 </body>
 </html>
