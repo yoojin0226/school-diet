@@ -14,8 +14,9 @@
         body { 
             margin: 0; 
             background: var(--bg-blue); 
-            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; 
+            font-family: 'Apple SD Gothic Neo', sans-serif; 
             overflow: hidden; 
+            touch-action: none; /* 브라우저 기본 스크롤 방지 */
         }
 
         #app {
@@ -26,7 +27,7 @@
             background: var(--bg-gradient);
         }
 
-        /* --- 상단 헤더: 물 토큰 및 기능 아이콘 --- */
+        /* --- 상단 헤더 --- */
         .main-header {
             padding: 15px 20px;
             display: flex;
@@ -54,97 +55,89 @@
         }
 
         .btn_icon {
-            background: white;
-            border: none;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
+            background: white; border: none; width: 38px; height: 38px;
+            border-radius: 50%; font-size: 18px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+        }
+
+        /* --- 상단 학교 랭킹 (요청하신 위치) --- */
+        .top-ranking-info {
+            text-align: center;
+            margin-top: 10px;
+            z-index: 10;
+        }
+
+        .ranking-text {
             font-size: 18px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-weight: bold;
+            color: #333;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .pet-mini-profile {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid white;
-            overflow: hidden;
-            background: #fff;
+        .ranking-number {
+            color: var(--primary-green);
         }
 
-        /* --- 메인 장면 및 배경 꾸미기 공간 --- */
+        /* --- 메인 장면 --- */
         .main-scene { 
             flex: 1; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            justify-content: center; 
+            justify-content: flex-end; /* 캐릭터를 아래쪽으로 배치 */
             position: relative; 
             z-index: 10;
+            padding-bottom: 30px; /* 하단 탭과의 간격 */
         }
 
-        /* 꾸미기 아이템이 배치될 공간 */
-        .decoration-space {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        /* --- 중앙 캐릭터 및 질문/퀴즈 --- */
-        .character-container {
-            position: relative;
-            width: 65%; 
-            max-width: 300px;
-            cursor: pointer;
-            transition: transform 0.1s;
+        /* --- 캐릭터 360도 회전 컨테이너 --- */
+        .character-wrapper {
+            perspective: 1000px;
+            width: 260px;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px; /* 질문 상자와의 간격 */
         }
+
+        .character-wrapper:active { cursor: grabbing; }
 
         .main-character {
             width: 100%;
             height: auto;
-            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
-            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.1));
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+            pointer-events: none;
         }
 
-        /* 오늘의 기후 질문 (말풍선 스타일) */
-        .quiz-bubble {
-            margin-top: 20px;
+        /* --- 사각형 질문 상자 (캐릭터 아래) --- */
+        .quiz-box {
             background: white;
-            padding: 15px 20px;
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-            text-align: center;
             width: 85%;
-            font-size: 14px;
-            line-height: 1.5;
-            position: relative;
-        }
-
-        .quiz-bubble::after {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 10px solid white;
+            max-width: 340px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         .quiz-tag {
             display: block;
             color: var(--primary-green);
             font-weight: bold;
-            font-size: 11px;
-            margin-bottom: 5px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .quiz-content {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.5;
+            word-break: keep-all;
         }
 
         /* --- 하단 네비게이션 --- */
@@ -159,35 +152,13 @@
             z-index: 100;
         }
 
-        .nav-item { border: none; background: none; display: flex; flex-direction: column; align-items: center; font-size: 11px; color: #bbb; cursor: pointer; }
+        .nav-item { border: none; background: none; display: flex; flex-direction: column; align-items: center; font-size: 11px; color: #bbb; }
         .nav-item.active { color: var(--primary-green); font-weight: bold; }
         .nav-icon { font-size: 24px; margin-bottom: 4px; }
-
-        /* 애니메이션 */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-
-        .effect-item {
-            position: absolute;
-            pointer-events: none;
-            font-size: 30px;
-            animation: popUp 0.8s ease-out forwards;
-            z-index: 200;
-        }
-
-        @keyframes popUp {
-            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-            100% { transform: translate(-50%, -180%) scale(1.5); opacity: 0; }
-        }
     </style>
 </head>
 <body>
     <div id="app">
-        <div class="decoration-space" id="deco-space">
-            </div>
-
         <header class="main-header">
             <div class="water-token-badge">
                 <span class="icon">💧</span>
@@ -197,22 +168,28 @@
             <div class="header-right-icons">
                 <button class="btn_icon">📤</button>
                 <button class="btn_icon">🔔</button>
-                <div class="pet-mini-profile">
-                    <img src="image_496c1f.png" alt="My Pet" style="width:100%; height:100%; object-fit:cover;">
+                <div class="btn_icon" style="overflow:hidden;">
+                    <img src="image_496c1f.png" alt="Pet" style="width:100%; height:100%; object-fit:cover;">
                 </div>
             </div>
         </header>
 
-        <main class="main-scene">
-            <div class="character-container" id="character-zone">
-                <img src="image_496c1f.png" alt="메인 캐릭터" class="main-character">
-                
-                <div class="quiz-bubble">
-                    <span class="quiz-tag">오늘의 기후 퀴즈</span>
-                    <span id="quiz-text">"양치할 때 컵을 사용하면 물을 얼마나 아낄 수 있을까요?"</span>
-                </div>
+        <div class="top-ranking-info">
+            <div class="ranking-text">
+                우리 학교 순위 <span class="ranking-number">15</span>위 째
+            </div>
+        </div>
 
-                <div id="effect-container" style="position: absolute; width: 100%; height: 100%;"></div>
+        <main class="main-scene">
+            <div class="character-wrapper" id="rotate-container">
+                <img src="image_496c1f.png" alt="메인 캐릭터" id="sprout-img" class="main-character">
+            </div>
+
+            <div class="quiz-box">
+                <span class="quiz-tag">오늘의 기후 행동 질문</span>
+                <div class="quiz-content">
+                    "가까운 거리는 걷거나 자전거를 이용해볼까요?"
+                </div>
             </div>
         </main>
 
@@ -226,32 +203,39 @@
     </div>
 
     <script>
-        const charZone = document.getElementById('character-zone');
-        const effectContainer = document.getElementById('effect-container');
+        const container = document.getElementById('rotate-container');
+        const img = document.getElementById('sprout-img');
 
-        // 캐릭터 클릭 시 하트/반짝이 효과
-        charZone.addEventListener('click', (e) => {
-            const icons = ['❤️', '✨', '💖', '⭐', '💧'];
-            
-            for(let i=0; i<3; i++) {
-                const span = document.createElement('span');
-                span.className = 'effect-item';
-                span.innerText = icons[Math.floor(Math.random() * icons.length)];
-                
-                // 클릭 위치 기준 무작위 산출 (보정치 적용)
-                const x = e.offsetX;
-                const y = e.offsetY;
-                
-                span.style.left = x + (Math.random() * 40 - 20) + 'px';
-                span.style.top = y + (Math.random() * 40 - 20) + 'px';
-                
-                effectContainer.appendChild(span);
-                
-                setTimeout(() => span.remove(), 800);
-            }
-        });
+        let isDragging = false;
+        let startX;
+        let currentRotation = 0;
 
-        // 추후 퀴즈 텍스트를 무작위로 변경하는 함수 등을 추가할 수 있습니다.
+        const startAction = (e) => {
+            isDragging = true;
+            startX = (e.pageX || e.touches[0].pageX);
+        };
+
+        const moveAction = (e) => {
+            if (!isDragging) return;
+            const x = (e.pageX || e.touches[0].pageX);
+            const walk = (x - startX) * 0.6; // 회전 민감도
+            img.style.transform = `rotateY(${currentRotation + walk}deg)`;
+        };
+
+        const endAction = (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            const x = (e.pageX || e.changedTouches[0].pageX);
+            currentRotation += (x - startX) * 0.6;
+        };
+
+        // 마우스/터치 이벤트 등록
+        container.addEventListener('mousedown', startAction);
+        window.addEventListener('mousemove', moveAction);
+        window.addEventListener('mouseup', endAction);
+        container.addEventListener('touchstart', startAction);
+        window.addEventListener('touchmove', moveAction);
+        window.addEventListener('touchend', endAction);
     </script>
 </body>
 </html>
