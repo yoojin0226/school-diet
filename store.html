@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>스토어 - 우리 학교 탄소 다이어트</title>
+    <style>
+        :root {
+            --primary-green: #76c859;
+            --water-blue: #4fc3f7;
+            --bg-light: #f7f9fc;
+        }
+
+        body { 
+            margin: 0; padding: 0;
+            font-family: 'Apple SD Gothic Neo', sans-serif; 
+            background: #fff;
+            overflow-x: hidden;
+        }
+
+        /* --- 상단 고정 헤더 --- */
+        .store-header {
+            position: fixed; top: 0; width: 100%; height: 60px;
+            background: white; display: flex; justify-content: space-between;
+            align-items: center; padding: 0 20px; box-sizing: border-box; z-index: 1001;
+        }
+
+        .reward-badge {
+            background: #f0faff; padding: 8px 15px; border-radius: 20px;
+            font-weight: bold; color: var(--water-blue); font-size: 16px;
+            display: flex; align-items: center; gap: 5px;
+        }
+
+        .header-icons { font-size: 22px; display: flex; gap: 15px; }
+
+        /* --- 카테고리 탭 (고정) --- */
+        .category-nav {
+            position: fixed; top: 60px; width: 100%; height: 50px;
+            background: white; display: flex; border-bottom: 1px solid #eee; z-index: 1000;
+        }
+
+        .cat-btn {
+            flex: 1; border: none; background: none; font-size: 15px;
+            font-weight: bold; color: #bbb; cursor: pointer;
+        }
+
+        .cat-btn.active { color: var(--primary-green); border-bottom: 3px solid var(--primary-green); }
+
+        /* --- 컨텐츠 영역 --- */
+        .store-content {
+            padding: 120px 20px 100px 20px; /* 헤더와 하단탭 여백 */
+            scroll-behavior: smooth;
+        }
+
+        .section-title { font-size: 18px; font-weight: bold; margin: 30px 0 15px 0; }
+        .sub-section-title { font-size: 14px; color: #888; margin-bottom: 15px; }
+
+        /* --- 아이템 그리드 레이아웃 --- */
+        .item-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .item-card {
+            background: #f9f9f9; border-radius: 15px; padding: 15px;
+            text-align: center; position: relative;
+        }
+
+        .item-img-placeholder {
+            width: 100%; aspect-ratio: 1/1; background: #eee;
+            border-radius: 10px; margin-bottom: 10px;
+            display: flex; justify-content: center; align-items: center; font-size: 40px;
+        }
+
+        .item-name { font-size: 14px; font-weight: bold; margin-bottom: 5px; display: block; }
+        .item-price { font-size: 13px; color: var(--water-blue); font-weight: bold; }
+
+        /* --- 하단 네비게이션 --- */
+        .bottom-nav { 
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 85px; 
+            background: white; display: flex; border-top: 1px solid #eee; 
+            padding-bottom: env(safe-area-inset-bottom); z-index: 1000;
+        }
+
+        .nav-item { 
+            flex: 1; border: none; background: none; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            color: #bbb; cursor: pointer; font-size: 13px; text-decoration: none;
+        }
+
+        .nav-item.active { color: var(--primary-green); font-weight: bold; }
+        .nav-icon { font-size: 28px; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+    <header class="store-header">
+        <div class="reward-badge">💧 1,250</div>
+        <div class="header-icons">
+            <span>🪑</span><span>👕</span>
+        </div>
+    </header>
+
+    <nav class="category-nav">
+        <button class="cat-btn active" onclick="scrollToSection('deco-section', this)">꾸미기</button>
+        <button class="cat-btn" onclick="scrollToSection('closet-section', this)">옷장</button>
+        <button class="cat-btn" onclick="scrollToSection('charge-section', this)">충전소</button>
+    </nav>
+
+    <main class="store-content">
+        <div id="deco-section">
+            <h2 class="section-title">꾸미기</h2>
+            
+            <p class="sub-section-title">가구</p>
+            <div class="item-grid">
+                <div class="item-card"><div class="item-img-placeholder">🪑</div><span class="item-name">나무 의자</span><span class="item-price">💧 200</span></div>
+                <div class="item-card"><div class="item-img-placeholder">🪴</div><span class="item-name">작은 화분</span><span class="item-price">💧 150</span></div>
+            </div>
+
+            <p class="sub-section-title">인테리어</p>
+            <div class="item-grid">
+                <div class="item-card"><div class="item-img-placeholder">🖼️</div><span class="item-name">풍경 액자</span><span class="item-price">💧 300</span></div>
+                <div class="item-card"><div class="item-img-placeholder">🧱</div><span class="item-name">벽지 교체</span><span class="item-price">💧 500</span></div>
+            </div>
+        </div>
+
+        <div id="closet-section">
+            <h2 class="section-title">옷장</h2>
+            <div class="item-grid">
+                <div class="item-card"><div class="item-img-placeholder">👕</div><span class="item-name">초록 티셔츠</span><span class="item-price">💧 400</span></div>
+                <div class="item-card"><div class="item-img-placeholder">👒</div><span class="item-name">밀짚 모자</span><span class="item-price">💧 250</span></div>
+            </div>
+        </div>
+
+        <div id="charge-section">
+            <h2 class="section-title">충전소</h2>
+            <div style="background: #f0faff; padding: 30px; border-radius: 15px; text-align: center; color: var(--water-blue); font-weight: bold;">
+                기후 행동을 완료하고<br>물방울을 충전하세요!
+            </div>
+        </div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span><span>홈</span></a>
+        <a href="quest.html" class="nav-item"><span class="nav-icon">📜</span><span>퀘스트</span></a>
+        <a href="#" class="nav-item"><span class="nav-icon">🏆</span><span>랭킹</span></a>
+        <a href="store.html" class="nav-item active"><span class="nav-icon">🛒</span><span>스토어</span></a>
+        <a href="#" class="nav-item"><span class="nav-icon">👤</span><span>내 정보</span></a>
+    </nav>
+
+    <script>
+        // 자동 스크롤 함수
+        function scrollToSection(sectionId, btn) {
+            // 모든 버튼 비활성화
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            // 클릭한 버튼 활성화
+            btn.classList.add('active');
+
+            // 해당 섹션 위치로 스크롤 (헤더 높이 고려)
+            const section = document.getElementById(sectionId);
+            const headerOffset = 110;
+            const elementPosition = section.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        }
+    </script>
+</body>
+</html>
