@@ -3,41 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>우리 학교 탄소 다이어트 챌린지</title>
+    <title>홈 - 우리 학교 탄소 다이어트</title>
     <style>
         :root {
             --primary-green: #76c859;
             --water-blue: #4fc3f7;
-            --bg-light: #f7f9fc;
         }
 
         body { 
             margin: 0; padding: 0;
             font-family: 'Apple SD Gothic Neo', sans-serif; 
             overflow: hidden; 
-            background: #fff;
+            background: linear-gradient(to bottom, #ffffff, #c2e9fb);
         }
 
-        /* --- 페이지 관리 --- */
-        .page {
-            display: none;
-            height: calc(100vh - 85px); /* 하단 탭 높이 제외 */
-            width: 100%;
-            position: absolute;
-            top: 0; left: 0;
-            overflow-y: auto;
+        #app {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            justify-content: flex-end;
+            padding-bottom: 85px; /* 하단 네비게이션 높이 */
             box-sizing: border-box;
         }
 
-        .page.active { display: flex; flex-direction: column; }
-
-        /* --- [HOME] 홈 화면 스타일 (복구) --- */
-        #home-page { 
-            background: linear-gradient(to bottom, #ffffff, #c2e9fb); 
-            justify-content: flex-end; 
-            padding-bottom: 30px; 
-        }
-
+        /* --- 상단 헤더 --- */
         .main-header { 
             position: absolute; top: 0; width: 100%; 
             display: flex; justify-content: space-between; 
@@ -49,12 +38,13 @@
             text-align: center; font-weight: bold; font-size: 22px; 
         }
 
-        /* 캐릭터 크기 복구 및 위치 조정 */
+        /* --- 캐릭터 영역 --- */
         .character-wrapper { 
-            width: 320px; /* 크기를 다시 키움 */
+            width: 320px; 
             perspective: 1000px; 
             margin: 0 auto 40px auto; 
             cursor: grab; 
+            touch-action: none;
         }
 
         .main-character { 
@@ -64,7 +54,7 @@
             pointer-events: none;
         }
 
-        /* 질문 박스 크기 복구 */
+        /* --- 질문 박스 --- */
         .quiz-box { 
             background: white; 
             width: 90%; 
@@ -76,14 +66,7 @@
             margin: 0 auto 20px auto; 
         }
 
-        /* --- [QUEST] 퀘스트 화면 스타일 --- */
-        #quest-page { background: var(--bg-light); padding: 25px; }
-        .quest-header { text-align: center; font-weight: bold; font-size: 20px; margin-bottom: 25px; }
-        .record-tabs { display: flex; gap: 15px; margin-bottom: 30px; }
-        .small-tab { flex: 1; background: white; padding: 20px; border-radius: 18px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .large-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.06); border-left: 6px solid var(--primary-green); margin-bottom: 25px; }
-
-        /* --- 하단 네비게이션 탭 크기 복구 --- */
+        /* --- 하단 네비게이션 --- */
         .bottom-nav { 
             position: fixed; bottom: 0; width: 100%; height: 85px; 
             background: white; display: flex; border-top: 1px solid #eee; 
@@ -93,16 +76,16 @@
         .nav-item { 
             flex: 1; border: none; background: none; 
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            color: #bbb; cursor: pointer; font-size: 13px; /* 텍스트 크기 키움 */
+            color: #bbb; cursor: pointer; font-size: 13px; text-decoration: none;
         }
 
         .nav-item.active { color: var(--primary-green); font-weight: bold; }
-        .nav-icon { font-size: 28px; margin-bottom: 5px; } /* 아이콘 크기 키움 */
+        .nav-icon { font-size: 28px; margin-bottom: 5px; }
     </style>
 </head>
 <body>
 
-    <div id="home-page" class="page active">
+    <div id="app">
         <header class="main-header">
             <div style="background:rgba(255,255,255,0.85); padding:10px 18px; border-radius:25px; font-weight:bold; color:var(--water-blue); font-size: 18px;">💧 1,250</div>
             <div style="display:flex; gap:15px; font-size:24px;"><span>📤</span><span>🔔</span></div>
@@ -120,70 +103,20 @@
         </div>
     </div>
 
-    <div id="quest-page" class="page">
-        <div class="quest-header">질문과 답변</div>
-        <div class="record-tabs">
-            <div class="small-tab"><span style="font-size:24px;">✍️</span><br><span style="font-size:14px; font-weight:bold;">작성한 질문</span></div>
-            <div class="small-tab"><span style="font-size:24px;">🏃</span><br><span style="font-size:14px; font-weight:bold;">수행한 행동</span></div>
-        </div>
-        <div style="font-weight:bold; margin-bottom:12px; font-size: 16px;">📅 오늘의 미션</div>
-        <div class="large-card">
-            <div style="color:var(--primary-green); font-size:12px; font-weight:bold;">CLIMATE MISSION</div>
-            <div style="font-weight:bold; margin-top:10px; font-size: 18px;">"점심시간 교실 소등 인증하기"</div>
-        </div>
-        <div style="font-weight:bold; margin-bottom:12px; font-size: 16px;">💡 추천 행동</div>
-        <div style="background:white; padding:18px; border-radius:15px; margin-bottom:10px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">🚲 자전거 등교하기</div>
-        <div style="background:white; padding:18px; border-radius:15px; margin-bottom:10px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">🔌 안쓰는 플러그 뽑기</div>
-    </div>
-
     <nav class="bottom-nav">
-        <button class="nav-item active" id="btn-home">
-            <span class="nav-icon">🏠</span><span>홈</span>
-        </button>
-        <button class="nav-item" id="btn-quest">
-            <span class="nav-icon">📜</span><span>퀘스트</span>
-        </button>
-        <button class="nav-item">
-            <span class="nav-icon">🏆</span><span>랭킹</span>
-        </button>
-        <button class="nav-item">
-            <span class="nav-icon">🛒</span><span>스토어</span>
-        </button>
-        <button class="nav-item">
-            <span class="nav-icon">👤</span><span>내 정보</span>
-        </button>
+        <a href="index.html" class="nav-item active"><span class="nav-icon">🏠</span><span>홈</span></a>
+        <a href="quest.html" class="nav-item"><span class="nav-icon">📜</span><span>퀘스트</span></a>
+        <a href="#" class="nav-item"><span class="nav-icon">🏆</span><span>랭킹</span></a>
+        <a href="#" class="nav-item"><span class="nav-icon">🛒</span><span>스토어</span></a>
+        <a href="#" class="nav-item"><span class="nav-icon">👤</span><span>내 정보</span></a>
     </nav>
 
     <script>
-        // 페이지 전환 스크립트
-        const btnHome = document.getElementById('btn-home');
-        const btnQuest = document.getElementById('btn-quest');
-        const pageHome = document.getElementById('home-page');
-        const pageQuest = document.getElementById('quest-page');
-
-        btnHome.addEventListener('click', () => {
-            pageHome.classList.add('active');
-            pageQuest.classList.remove('active');
-            btnHome.classList.add('active');
-            btnQuest.classList.remove('active');
-        });
-
-        btnQuest.addEventListener('click', () => {
-            pageQuest.classList.add('active');
-            pageHome.classList.remove('active');
-            btnQuest.classList.add('active');
-            btnHome.classList.remove('active');
-        });
-
-        // 캐릭터 회전 스크립트 (모바일 터치 대응)
         const container = document.getElementById('rotate-container');
         const img = document.getElementById('sprout-img');
         let isDragging = false, startX, currentRotation = 0;
 
-        container.addEventListener('touchstart', (e) => { 
-            isDragging = true; 
-            startX = e.touches[0].pageX; 
-        });
+        container.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].pageX; });
         window.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
             let walk = (e.touches[0].pageX - startX) * 0.7;
