@@ -9,86 +9,68 @@
             --primary-green: #76c859;
             --water-blue: #4fc3f7;
             --text-main: #333;
-            --text-sub: #999;
+            --bg-light: #f8f9fa;
         }
 
         body { 
             margin: 0; padding: 0;
             font-family: 'Apple SD Gothic Neo', sans-serif; 
             background: #fff;
+            scroll-behavior: smooth; /* 부드러운 스크롤 효과 */
         }
 
-        /* --- 상단 고정 헤더 --- */
+        /* --- 상단 고정 헤더 & 카테고리 --- */
+        .header-fixed {
+            position: fixed; top: 0; width: 100%; background: white; z-index: 1001;
+            border-bottom: 1px solid #eee;
+        }
+
         .store-header {
-            position: fixed; top: 0; width: 100%; height: 60px;
-            background: white; display: flex; justify-content: space-between;
-            align-items: center; padding: 0 20px; box-sizing: border-box; z-index: 1001;
+            height: 60px; display: flex; justify-content: space-between;
+            align-items: center; padding: 0 20px;
         }
         .reward-badge { background: #f0faff; padding: 8px 15px; border-radius: 20px; font-weight: bold; color: var(--water-blue); font-size: 16px; }
 
         .category-nav {
-            position: fixed; top: 60px; width: 100%; height: 50px;
-            background: white; display: flex; border-bottom: 1px solid #eee; z-index: 1000;
+            height: 50px; display: flex;
         }
-        .cat-btn { flex: 1; border: none; background: none; font-size: 15px; font-weight: bold; color: #bbb; }
-        .cat-btn.active { color: var(--primary-green); border-bottom: 3px solid var(--primary-green); }
+        .cat-btn { 
+            flex: 1; border: none; background: none; font-size: 15px; 
+            font-weight: bold; color: #bbb; cursor: pointer; position: relative;
+        }
+        .cat-btn.active { color: var(--primary-green); }
+        .cat-btn.active::after {
+            content: ''; position: absolute; bottom: 0; left: 20%; width: 60%;
+            height: 3px; background: var(--primary-green); border-radius: 2px;
+        }
 
         /* --- 컨텐츠 영역 --- */
-        .store-content { padding: 130px 15px 100px 15px; }
+        .store-content { padding: 120px 15px 100px 15px; }
+        
+        .section-container { margin-bottom: 50px; }
+        .section-main-title { font-size: 20px; font-weight: bold; margin: 30px 0 20px 5px; color: var(--text-main); }
+        .sub-title { font-size: 16px; font-weight: bold; margin: 20px 0 15px 5px; color: #666; }
 
-        /* --- 테마 그리드 레이아웃 (2열) --- */
-        .theme-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px 15px;
-        }
-
-        /* --- 개별 테마 카드 구성 --- */
-        .theme-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        /* 1. 이미지 영역 (중앙) */
+        /* --- 인테리어 테마 그리드 (6개 주제) --- */
+        .theme-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 15px; }
+        .theme-card { display: flex; flex-direction: column; align-items: center; text-align: center; }
         .img-container {
-            width: 100%;
-            aspect-ratio: 1/1;
-            background: #f8f9fa;
-            border-radius: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            width: 100%; aspect-ratio: 1/1; background: #f8f9fa; border-radius: 20px;
+            display: flex; justify-content: center; align-items: center; overflow: hidden; margin-bottom: 10px;
         }
-        .img-container img {
-            width: 85%;
-            height: 85%;
-            object-fit: contain;
-        }
+        .img-container img { width: 85%; height: 85%; object-fit: contain; }
+        .theme-title { font-size: 14px; font-weight: bold; margin-bottom: 8px; }
+        .status-pill { background: #f2f2f2; color: #888; font-size: 11px; font-weight: 800; padding: 4px 14px; border-radius: 20px; }
 
-        /* 2. 주제 제목 (그림 밑) */
-        .theme-title {
-            font-size: 14px;
-            font-weight: bold;
-            color: var(--text-main);
-            margin-bottom: 8px;
-            white-space: nowrap;
+        /* --- 가구 & 옷장 아이템 그리드 --- */
+        .item-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .item-box {
+            background: #fff; border: 1px solid #eee; border-radius: 15px; padding: 10px;
+            text-align: center; display: flex; flex-direction: column; align-items: center;
         }
-
-        /* 3. 아이템 현황 (모서리가 아주 둥근 사각형) */
-        .status-pill {
-            background: #f2f2f2;
-            color: #888;
-            font-size: 11px;
-            font-weight: 800;
-            padding: 4px 14px;
-            border-radius: 20px; /* 완전한 둥근 모양 */
-            display: inline-block;
-        }
+        .item-icon { font-size: 30px; margin-bottom: 5px; height: 40px; display: flex; align-items: center; }
+        .item-name { font-size: 12px; font-weight: bold; margin-bottom: 3px; }
+        .item-price { font-size: 11px; color: var(--water-blue); font-weight: bold; }
 
         /* --- 하단 네비게이션 --- */
         .bottom-nav { 
@@ -103,69 +85,90 @@
 </head>
 <body>
 
-    <header class="store-header">
-        <div class="reward-badge">💧 1,250</div>
-        <div style="font-size: 20px; display: flex; gap: 12px;"><span>🪑</span><span>👕</span></div>
-    </header>
+    <div class="header-fixed">
+        <header class="store-header">
+            <div class="reward-badge">💧 1,250</div>
+            <div style="font-size: 20px; display: flex; gap: 12px;"><span>🪑</span><span>👕</span></div>
+        </header>
 
-    <nav class="category-nav">
-        <button class="cat-btn active">꾸미기</button>
-        <button class="cat-btn">옷장</button>
-        <button class="cat-btn">충전소</button>
-    </nav>
+        <nav class="category-nav">
+            <button class="cat-btn active" onclick="tabScroll('deco-sec', this)">꾸미기</button>
+            <button class="cat-btn" onclick="tabScroll('closet-sec', this)">옷장</button>
+            <button class="cat-btn" onclick="tabScroll('charge-sec', this)">충전소</button>
+        </nav>
+    </div>
 
     <main class="store-content">
-        <div class="theme-grid">
+        
+        <section id="deco-sec" class="section-container">
+            <h1 class="section-main-title">꾸미기</h1>
             
-            <div class="theme-card">
-                <div class="img-container">
-                    <img src="image_22cdaf.png" alt="몽글몽글 구름 위 세상">
-                </div>
-                <div class="theme-title">몽글몽글 구름 위 세상</div>
-                <div class="status-pill">0 / 6</div>
+            <h2 class="sub-title">가구</h2>
+            <div class="item-grid">
+                <div class="item-box"><div class="item-icon">🖼️</div><span class="item-name">풍경 액자</span><span class="item-price">💧 100</span></div>
+                <div class="item-box"><div class="item-icon">🪑</div><span class="item-name">나무 의자</span><span class="item-price">💧 150</span></div>
+                <div class="item-box"><div class="item-icon">🧱</div><span class="item-name">구름 벽지</span><span class="item-price">💧 300</span></div>
+                <div class="item-box"><div class="item-icon">🪴</div><span class="item-name">작은 화분</span><span class="item-price">💧 80</span></div>
+                <div class="item-box"><div class="item-icon">🛋️</div><span class="item-name">편한 소파</span><span class="item-price">💧 400</span></div>
+                <div class="item-box"><div class="item-icon">💡</div><span class="item-name">무드 조명</span><span class="item-price">💧 120</span></div>
             </div>
 
-            <div class="theme-card">
-                <div class="img-container">
-                    <img src="image_22cd32.png" alt="친환경 자전거 여행">
+            <h2 class="sub-title">인테리어 테마</h2>
+            <div class="theme-grid">
+                <div class="theme-card">
+                    <div class="img-container"><img src="image_22cdaf.png"></div>
+                    <div class="theme-title">몽글몽글 구름 위 세상</div>
+                    <div class="status-pill">0 / 6</div>
                 </div>
-                <div class="theme-title">친환경 자전거 여행</div>
-                <div class="status-pill">0 / 6</div>
-            </div>
-
-            <div class="theme-card">
-                <div class="img-container">
-                    <img src="image_22ccf1.png" alt="별이 빛나는 밤">
+                <div class="theme-card">
+                    <div class="img-container"><img src="image_22cd32.png"></div>
+                    <div class="theme-title">친환경 자전거 여행</div>
+                    <div class="status-pill">0 / 6</div>
                 </div>
-                <div class="theme-title">별이 빛나는 밤</div>
-                <div class="status-pill">0 / 6</div>
-            </div>
-
-            <div class="theme-card">
-                <div class="img-container">
-                    <img src="image_22cc99.png" alt="오늘의 실천 상자">
+                <div class="theme-card">
+                    <div class="img-container"><img src="image_22ccf1.png"></div>
+                    <div class="theme-title">별이 빛나는 밤</div>
+                    <div class="status-pill">0 / 6</div>
                 </div>
-                <div class="theme-title">오늘의 실천 상자</div>
-                <div class="status-pill">0 / 6</div>
-            </div>
-
-            <div class="theme-card">
-                <div class="img-container">
-                    <img src="image_22c9ce.png" alt="마음의 연못">
+                <div class="theme-card">
+                    <div class="img-container"><img src="image_22cc99.png"></div>
+                    <div class="theme-title">오늘의 실천 상자</div>
+                    <div class="status-pill">0 / 6</div>
                 </div>
-                <div class="theme-title">마음의 연못</div>
-                <div class="status-pill">0 / 6</div>
-            </div>
-
-            <div class="theme-card">
-                <div class="img-container">
-                    <img src="image_22c98d.png" alt="기후의 문">
+                <div class="theme-card">
+                    <div class="img-container"><img src="image_22c9ce.png"></div>
+                    <div class="theme-title">마음의 연못</div>
+                    <div class="status-pill">0 / 6</div>
                 </div>
-                <div class="theme-title">기후의 문</div>
-                <div class="status-pill">0 / 6</div>
+                <div class="theme-card">
+                    <div class="img-container"><img src="image_22c98d.png"></div>
+                    <div class="theme-title">기후의 문</div>
+                    <div class="status-pill">0 / 6</div>
+                </div>
             </div>
+        </section>
 
-        </div>
+        <section id="closet-sec" class="section-container">
+            <h1 class="section-main-title">옷장</h1>
+            <div class="item-grid">
+                <div class="item-box"><div class="item-icon">🎀</div><span class="item-name">빨간 머리띠</span><span class="item-price">💧 50</span></div>
+                <div class="item-box"><div class="item-icon">👕</div><span class="item-name">기본 티셔츠</span><span class="item-price">💧 120</span></div>
+                <div class="item-box"><div class="item-icon">👒</div><span class="item-name">밀짚 모자</span><span class="item-price">💧 100</span></div>
+                <div class="item-box"><div class="item-icon">👖</div><span class="item-name">청바지</span><span class="item-price">💧 150</span></div>
+                <div class="item-box"><div class="item-icon">👓</div><span class="item-name">동글 안경</span><span class="item-price">💧 80</span></div>
+                <div class="item-box"><div class="item-icon">👟</div><span class="item-name">운동화</span><span class="item-price">💧 130</span></div>
+            </div>
+        </section>
+
+        <section id="charge-sec" class="section-container">
+            <h1 class="section-main-title">충전소</h1>
+            <div style="background: #f0faff; border-radius: 20px; padding: 40px 20px; text-align: center;">
+                <span style="font-size: 50px;">💧</span>
+                <p style="font-weight: bold; color: var(--water-blue); margin-top: 15px;">기후 행동 미션을 완료하고<br>물방울 리워드를 받으세요!</p>
+                <button style="background: var(--water-blue); color: white; border: none; padding: 12px 25px; border-radius: 25px; font-weight: bold; margin-top: 10px;" onclick="location.href='quest.html'">퀘스트 하러 가기</button>
+            </div>
+        </section>
+
     </main>
 
     <nav class="bottom-nav">
@@ -176,5 +179,23 @@
         <a href="#" class="nav-item"><span class="nav-icon">👤</span><span>내 정보</span></a>
     </nav>
 
+    <script>
+        // 자동 스크롤 함수
+        function tabScroll(id, btn) {
+            // 버튼 활성화 상태 변경
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // 섹션 위치로 스크롤
+            const target = document.getElementById(id);
+            const headerHeight = 110; // 헤더 + 카테고리 탭 높이
+            const targetPos = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+            window.scrollTo({
+                top: targetPos,
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
 </html>
