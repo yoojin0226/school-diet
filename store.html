@@ -14,7 +14,7 @@
 
         body { margin: 0; padding: 0; font-family: 'Apple SD Gothic Neo', sans-serif; background: #fff; scroll-behavior: smooth; }
 
-        /* --- 상단 고정 헤더 --- */
+        /* --- 상단 헤더 & 카테고리 --- */
         .header-fixed { position: fixed; top: 0; width: 100%; background: white; z-index: 1001; border-bottom: 1px solid #eee; }
         .store-header { height: 60px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
         .reward-badge { background: #f0faff; padding: 8px 15px; border-radius: 20px; font-weight: bold; color: var(--water-blue); font-size: 16px; }
@@ -23,20 +23,13 @@
         .cat-btn.active { color: var(--primary-green); }
         .cat-btn.active::after { content: ''; position: absolute; bottom: 0; left: 20%; width: 60%; height: 3px; background: var(--primary-green); border-radius: 2px; }
 
-        /* --- 컨텐츠 레이아웃 --- */
-        .store-content { padding: 130px 15px 100px 15px; }
-        .section-container { margin-bottom: 60px; scroll-margin-top: 130px; }
-        .section-main-title { font-size: 22px; font-weight: bold; margin: 20px 0 20px 5px; }
-        .sub-title { font-size: 17px; font-weight: bold; margin: 25px 0 15px 5px; color: #555; }
+        /* --- 컨텐츠 영역 --- */
+        .store-content { padding: 120px 15px 100px 15px; }
+        .section-container { margin-bottom: 50px; }
+        .section-main-title { font-size: 20px; font-weight: bold; margin: 30px 0 20px 5px; }
+        .sub-title { font-size: 16px; font-weight: bold; margin: 20px 0 15px 5px; color: #666; }
 
-        /* --- 가구 & 옷장 아이템 그리드 --- */
-        .item-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .item-box { background: #fff; border: 1px solid #eee; border-radius: 18px; padding: 12px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-        .item-icon { font-size: 32px; margin-bottom: 8px; }
-        .item-name { font-size: 13px; font-weight: bold; display: block; margin-bottom: 4px; }
-        .item-price { font-size: 12px; color: var(--water-blue); font-weight: bold; }
-
-        /* --- 인테리어 테마 그리드 (메인) --- */
+        /* --- 인테리어 테마 그리드 --- */
         .theme-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 15px; }
         .theme-card { display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; }
         .img-container { width: 100%; aspect-ratio: 1/1; background: #f8f9fa; border-radius: 20px; display: flex; justify-content: center; align-items: center; overflow: hidden; margin-bottom: 10px; border: 1px solid #eee; }
@@ -44,17 +37,33 @@
         .theme-title { font-size: 14px; font-weight: bold; margin-bottom: 8px; }
         .status-pill { background: #f2f2f2; color: #888; font-size: 11px; font-weight: 800; padding: 4px 14px; border-radius: 20px; }
 
-        /* --- 상세 페이지 레이어 --- */
-        #theme-detail-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; display: none; overflow-y: auto; }
+        /* --- 테마 상세 오버레이 페이지 --- */
+        #theme-detail-page {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 2000; display: none; overflow-y: auto;
+            padding-bottom: 50px;
+        }
         .detail-header { position: sticky; top: 0; background: white; padding: 15px 20px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #eee; z-index: 10; }
-        .preview-banner { width: 100%; background: #f0faff; }
-        .preview-banner img { width: 100%; display: block; }
+        .back-btn { border: none; background: none; font-size: 24px; cursor: pointer; }
+        
+        .preview-banner { width: 100%; height: 220px; background: #f0faff; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        .preview-banner img { width: 100%; height: 100%; object-fit: cover; }
+
         .detail-item-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px; }
+        .buy-card { background: #fff; border: 1px solid #eee; border-radius: 20px; padding: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .buy-img { width: 100%; aspect-ratio: 1/1; background: #fcfcfc; border-radius: 15px; margin-bottom: 10px; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        
+        /* 아이템 크기 수정 (80% -> 50%) */
+        .buy-img img { width: 50%; height: auto; object-fit: contain; }
+        
+        .buy-name { font-size: 14px; font-weight: bold; margin-bottom: 5px; display: block; }
+        .buy-price { color: var(--water-blue); font-weight: bold; font-size: 13px; background: #f0faff; padding: 4px 10px; border-radius: 10px; }
 
         /* --- 하단 네비 --- */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 85px; background: white; display: flex; border-top: 1px solid #eee; z-index: 1000; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 85px; background: white; display: flex; border-top: 1px solid #eee; padding-bottom: env(safe-area-inset-bottom); z-index: 1000; }
         .nav-item { flex: 1; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #bbb; font-size: 12px; }
         .nav-item.active { color: var(--primary-green); font-weight: bold; }
+        .nav-icon { font-size: 24px; margin-bottom: 4px; }
     </style>
 </head>
 <body>
@@ -65,145 +74,70 @@
             <div style="font-size: 20px; display: flex; gap: 12px;"><span>🪑</span><span>👕</span></div>
         </header>
         <nav class="category-nav">
-            <button class="cat-btn active" onclick="autoScroll('deco-sec', this)">꾸미기</button>
-            <button class="cat-btn" onclick="autoScroll('closet-sec', this)">옷장</button>
-            <button class="cat-btn" onclick="autoScroll('charge-sec', this)">충전소</button>
+            <button class="cat-btn active" onclick="tabScroll('deco-sec', this)">꾸미기</button>
+            <button class="cat-btn" onclick="tabScroll('closet-sec', this)">옷장</button>
+            <button class="cat-btn" onclick="tabScroll('charge-sec', this)">충전소</button>
         </nav>
     </div>
 
     <main class="store-content">
         <section id="deco-sec" class="section-container">
             <h1 class="section-main-title">꾸미기</h1>
-            
-            <h2 class="sub-title">가구</h2>
-            <div class="item-grid">
-                <div class="item-box"><div class="item-icon">🖼️</div><span class="item-name">풍경 액자</span><span class="item-price">💧 100</span></div>
-                <div class="item-box"><div class="item-icon">🪑</div><span class="item-name">나무 의자</span><span class="item-price">💧 150</span></div>
-                <div class="item-box"><div class="item-icon">🧱</div><span class="item-name">구름 벽지</span><span class="item-price">💧 300</span></div>
-            </div>
-
             <h2 class="sub-title">인테리어 테마</h2>
             <div class="theme-grid">
-                <div class="theme-card" onclick="openDetail('몽글몽글 구름 위 세상', 'image_d12b7b.jpg')">
+                <div class="theme-card" onclick="openThemeDetail()">
                     <div class="img-container"><img src="image_111c1f.png"></div>
                     <div class="theme-title">몽글몽글 구름 위 세상</div>
                     <div class="status-pill">0 / 10</div>
                 </div>
-                <div class="theme-card" onclick="openDetail('친환경 자전거 여행', 'image_22cd32.png')">
-                    <div class="img-container"><img src="image_22cd32.png"></div>
-                    <div class="theme-title">친환경 자전거 여행</div>
-                    <div class="status-pill">0 / 6</div>
-                </div>
-                <div class="theme-card" onclick="openDetail('별이 빛나는 밤', 'image_22ccf1.png')">
-                    <div class="img-container"><img src="image_22ccf1.png"></div>
-                    <div class="theme-title">별이 빛나는 밤</div>
-                    <div class="status-pill">0 / 6</div>
-                </div>
-                <div class="theme-card" onclick="openDetail('오늘의 실천 상자', 'image_22cc99.png')">
-                    <div class="img-container"><img src="image_22cc99.png"></div>
-                    <div class="theme-title">오늘의 실천 상자</div>
-                    <div class="status-pill">0 / 6</div>
-                </div>
-                <div class="theme-card" onclick="openDetail('마음의 연못', 'image_22c9ce.png')">
-                    <div class="img-container"><img src="image_22c9ce.png"></div>
-                    <div class="theme-title">마음의 연못</div>
-                    <div class="status-pill">0 / 6</div>
-                </div>
-                <div class="theme-card" onclick="openDetail('기후의 문', 'image_22c98d.png')">
-                    <div class="img-container"><img src="image_22c98d.png"></div>
-                    <div class="theme-title">기후의 문</div>
-                    <div class="status-pill">0 / 6</div>
-                </div>
-            </div>
-        </section>
-
-        <section id="closet-sec" class="section-container">
-            <h1 class="section-main-title">옷장</h1>
-            <div class="item-grid">
-                <div class="item-box"><div class="item-icon">🎀</div><span class="item-name">머리띠</span><span class="item-price">💧 50</span></div>
-                <div class="item-box"><div class="item-icon">👕</div><span class="item-name">티셔츠</span><span class="item-price">💧 120</span></div>
-                <div class="item-box"><div class="item-icon">👒</div><span class="item-name">모자</span><span class="item-price">💧 100</span></div>
-                <div class="item-box"><div class="item-icon">👖</div><span class="item-name">바지</span><span class="item-price">💧 150</span></div>
-            </div>
-        </section>
-
-        <section id="charge-sec" class="section-container">
-            <h1 class="section-main-title">충전소</h1>
-            <div style="background:#f9f9f9; padding:40px; border-radius:20px; text-align:center; color:#999;">
-                물방울 리워드 충전소 준비 중...
             </div>
         </section>
     </main>
 
-    <div id="theme-detail-overlay">
+    <div id="theme-detail-page">
         <div class="detail-header">
-            <button onclick="closeDetail()" style="border:none; background:none; font-size:24px;">←</button>
-            <span id="detail-title" style="font-weight:bold; font-size:18px;">테마 이름</span>
+            <button class="back-btn" onclick="closeThemeDetail()">←</button>
+            <span style="font-weight: bold; font-size: 18px;">몽글몽글 구름 위 세상</span>
         </div>
+        
         <div class="preview-banner">
-            <img id="detail-banner" src="" alt="완성 예시">
+            <img src="image_d12b7b.jpg" alt="완성 예시">
         </div>
-        <div id="item-list-area" class="detail-item-grid">
-            </div>
+
+        <div style="padding: 20px 20px 0 20px; font-weight: bold; color: #333;">테마 구성 아이템</div>
+
+        <div class="detail-item-grid">
+            <div class="buy-card"><div class="buy-img"><img src="star_cloud.png"></div><span class="buy-name">별</span><span class="buy-price">💧 200</span></div>
+            <div class="buy-card"><div class="buy-img"><img src="cloud%20fairy_cloud.png"></div><span class="buy-name">작은 구름 요정</span><span class="buy-price">💧 350</span></div>
+            <div class="buy-card"><div class="buy-img"><img src="bird_cloud.png"></div><span class="buy-name">새</span><span class="buy-price">💧 150</span></div>
+            <div class="buy-card"><div class="buy-img"><img src="planet_cloud.png"></div><span class="buy-name">행성</span><span class="buy-price">💧 400</span></div>
+            <div class="buy-card"><div class="buy-img"><img src="seed_cloud.png"></div><span class="buy-name">씨앗</span><span class="buy-price">💧 50</span></div>
+            <div class="buy-card"><div class="buy-img"><img src="sprout_cloud.png"></div><span class="buy-name">새싹</span><span class="buy-price">💧 80</span></div>
+            <div class="buy-card"><div class="buy-img"><img src="cloud_cloud.png"></div><span class="buy-name">구름</span><span class="buy-price">💧 180</span></div>
+            <div class="buy-card"><div class="buy-img"><img src="small_cloud_cloud.png"></div><span class="buy-name">작은 구름</span><span class="buy-price">💧 100</span></div>
+            <div class="buy-card"><div class="buy-img"><img src="sign_cloud.png"></div><span class="buy-name">팻말</span><span class="buy-price">💧 120</span></div>
+            <div class="buy-card"><div class="buy-img"><img src="stone_cloud.png"></div><span class="buy-name">돌</span><span class="buy-price">💧 60</span></div>
+        </div>
     </div>
 
     <nav class="bottom-nav">
-        <a href="index.html" class="nav-item"><span>🏠</span><span>홈</span></a>
-        <a href="quest.html" class="nav-item"><span>📜</span><span>퀘스트</span></a>
-        <a href="#" class="nav-item"><span>🏆</span><span>랭킹</span></a>
-        <a href="store.html" class="nav-item active"><span>🛒</span><span>스토어</span></a>
-        <a href="#" class="nav-item"><span>👤</span><span>내 정보</span></a>
+        <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span><span>홈</span></a>
+        <a href="quest.html" class="nav-item"><span class="nav-icon">📜</span><span>퀘스트</span></a>
+        <a href="#" class="nav-item"><span class="nav-icon">🏆</span><span>랭킹</span></a>
+        <a href="store.html" class="nav-item active"><span class="nav-icon">🛒</span><span>스토어</span></a>
+        <a href="#" class="nav-item"><span class="nav-icon">👤</span><span>내 정보</span></a>
     </nav>
 
     <script>
-        // 자동 스크롤 함수
-        function autoScroll(id, btn) {
+        function openThemeDetail() { document.getElementById('theme-detail-page').style.display = 'block'; }
+        function closeThemeDetail() { document.getElementById('theme-detail-page').style.display = 'none'; }
+        
+        function tabScroll(id, btn) {
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // 테마 상세 페이지 열기
-        function openDetail(title, bannerSrc) {
-            document.getElementById('detail-title').innerText = title;
-            document.getElementById('detail-banner').src = bannerSrc;
-            
-            // 아이템 리스트 생성 (구름 테마일 때만 예시로 10개 생성)
-            const listArea = document.getElementById('item-list-area');
-            listArea.innerHTML = '';
-            
-            if(title === '몽글몽글 구름 위 세상') {
-                const items = [
-                    {n:'별', p:200, f:'star_cloud.png'},
-                    {n:'작은 구름 요정', p:350, f:'cloud%20fairy_cloud.png'},
-                    {n:'새', p:150, f:'bird_cloud.png'},
-                    {n:'행성', p:400, f:'planet_cloud.png'},
-                    {n:'씨앗', p:50, f:'seed_cloud.png'},
-                    {n:'새싹', p:80, f:'sprout_cloud.png'},
-                    {n:'구름', p:180, f:'cloud_cloud.png'},
-                    {n:'작은 구름', p:100, f:'small_cloud_cloud.png'},
-                    {n:'팻말', p:120, f:'sign_cloud.png'},
-                    {n:'돌', p:60, f:'stone_cloud.png'}
-                ];
-                items.forEach(item => {
-                    listArea.innerHTML += `
-                        <div class="item-box">
-                            <div style="height:80px; display:flex; align-items:center; justify-content:center;">
-                                <img src="${item.f}" style="width:70%;">
-                            </div>
-                            <span class="item-name">${item.n}</span>
-                            <span class="item-price">💧 ${item.p}</span>
-                        </div>`;
-                });
-            } else {
-                listArea.innerHTML = '<p style="grid-column: span 2; text-align:center; color:#ccc; padding:40px;">아이템 준비 중입니다.</p>';
-            }
-
-            document.getElementById('theme-detail-overlay').style.display = 'block';
-        }
-
-        function closeDetail() {
-            document.getElementById('theme-detail-overlay').style.display = 'none';
+            const target = document.getElementById(id);
+            const targetPos = target.getBoundingClientRect().top + window.pageYOffset - 110;
+            window.scrollTo({ top: targetPos, behavior: 'smooth' });
         }
     </script>
 </body>
